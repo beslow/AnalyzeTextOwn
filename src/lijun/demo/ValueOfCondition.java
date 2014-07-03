@@ -272,8 +272,9 @@ public class ValueOfCondition {
     	}
     }
     
-//	public static void main(String[] args) {
-//		// TODO Auto-generated method stub
-//		test();
-//	}
+	public static void main(String[] args) {
+	// TODO Auto-generated method stub
+		ValueOfCondition valueOfCondition = new ValueOfCondition();
+		valueOfCondition.test();
+    }
 }
