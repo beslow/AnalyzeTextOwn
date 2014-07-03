@@ -200,11 +200,8 @@ public class ValueOfCondition {
     	//VarValue test
     	System.out.println("VarValue test");
     	status.set(0, "VarValue test");
-    	
-        System.out.println("VarValue's value:" + getVarValue("a").getValue());
-        
-        System.out.println( Integer.parseInt(getVarValue("a").getValue()) > Integer.parseInt(getVarValue("b").getValue()) );
-        
+    	doTest(getVarValue("a").getValue() == "5", status, 1);
+    	doTest(getVarValue("b").getValue() == "10", status, 1);
     	//count
     	System.out.println("count");
     	status.set(0, "count");
