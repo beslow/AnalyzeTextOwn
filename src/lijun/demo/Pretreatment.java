@@ -26,9 +26,9 @@ public class Pretreatment {
 	public void StringToLine( String currentLine, ArrayList<String> list, int index ) throws ExceptionMessage {
 		currentLine = currentLine.trim();
 		String key = SharedMethods.DistinguishSplitKey( currentLine );
-		/*if ( key.equals( MainKeys.INVALID ) ) {
+		if ( key.equals( MainKeys.INVALID ) ) {
 			throw new ExceptionMessage("\"" + currentLine + "\"有语法错误", index);
-		} else */if ( key.equals( MainKeys.TEXTSTART ) ) {
+		} else if ( key.equals( MainKeys.TEXTSTART ) ) {
 			int endOfTEXTSTART = SharedMethods.indexOfMatching(currentLine, 0, '"', '"');
 			if ( endOfTEXTSTART == -1 ) {
 				throw new ExceptionMessage("\"缺少匹配的双引号", index);
@@ -42,7 +42,7 @@ public class Pretreatment {
 			int posOfLeftParentheses = currentLine.indexOf( '(' );
 			if ( posOfLeftParentheses == -1 ) {
 				throw new ExceptionMessage( MainKeys.FOR + "语句需要使用\"(\"", index);
-			} else if ( !currentLine.substring( 0, posOfLeftParentheses ).replace( MainKeys.FOR, "").trim().equals("") ) {
+			} else if ( !currentLine.substring( 0, posOfLeftParentheses ).replaceFirst( MainKeys.FOR, "").trim().equals("") ) {
 				throw new ExceptionMessage( currentLine.substring( 0, posOfLeftParentheses+1 ) + " 有语法错误", index);
 			} else {
 				int posOfRightParentheses = SharedMethods.indexOfMatching( currentLine, 0, '(', ')' );
@@ -98,7 +98,7 @@ public class Pretreatment {
 		int posOfLeftParentheses = currentLine.indexOf( '(' );
 		if ( posOfLeftParentheses == -1 ) {
 			throw new ExceptionMessage( key + "语句需要使用\"(\"", index);
-		} else if ( !currentLine.substring( 0, posOfLeftParentheses ).replace( key, "").trim().equals("") ) {
+		} else if ( !currentLine.substring( 0, posOfLeftParentheses ).replaceFirst( key, "").trim().equals("") ) {
 			throw new ExceptionMessage( currentLine.substring( 0, posOfLeftParentheses+1 ) + " 有语法错误", index);
 		} else {
 			int posOfRightParentheses = SharedMethods.indexOfMatching( currentLine, 0, '(', ')' );
@@ -126,15 +126,15 @@ public class Pretreatment {
 		list.add( key );
 		LineNoMap.put( list.size() - 1, index );
 		if ( currentLine.length() > key.length() ) {
-			StringToLine( currentLine.replace( key, "").trim(), list, index);
+			StringToLine( currentLine.substring( key.length() ).trim(), list, index);
 		}
 	}
 	
 	public void HandleSpecialString( String currentLine, String start, String end, ArrayList<String> list, int index ) throws ExceptionMessage {
-		int posOfEnd = currentLine.indexOf( MainKeys.ENDEXIT, MainKeys.EXIT.length() );
+		int posOfEnd = currentLine.indexOf( end, start.length() );
 		if ( posOfEnd == -1 ) {
 			throw new ExceptionMessage( start + " 需要有结束符  " + end, index );
-		} else if ( posOfEnd != currentLine.length() - 1 ) {
+		} else if ( posOfEnd + end.length() != currentLine.length() ) {
 			throw new ExceptionMessage( "此行有语法错误，" + start +"的结束符" + end + "之后多余", index );
 		} else {
 			list.add( currentLine );

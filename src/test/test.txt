@@ -1,4 +1,8 @@
 &&&variable i=0
-&&&for(i=0;i<5;i=i+1){ &&&if(i==0) {
-"wo success!"
+&&&variable j=0
+&&&for(i=0;i<5;i=i+1){ &&&for(j=0;j<2;j=j+1){"wo success!"
+"jj"
 }&&&}&&&
+&&&while(j==0){&&&break&&&
+}&&&
+&&&label&&&

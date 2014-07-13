@@ -8,7 +8,7 @@ public class TestAll {
 		
 		new ConditionTest();
 		
-		new AnalyzeTextTest();
+		//new AnalyzeTextTest();
 		
 		new PretreatmentTest();
 	}
